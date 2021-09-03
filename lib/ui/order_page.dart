@@ -18,6 +18,9 @@ class _OrderPageState extends State<OrderPage> {
   final _namebController = TextEditingController();
   final _tipoController = TextEditingController();
   final _observController = TextEditingController();
+  final _tiposController = TextEditingController();
+
+  final listTipo = ["testes","expermento"];
 
   final picker = ImagePicker();
 
@@ -40,6 +43,7 @@ class _OrderPageState extends State<OrderPage> {
       _namebController.text = _editedOrder.name;
       _tipoController.text = _editedOrder.tipo;
       _observController.text = _editedOrder.observ;
+      _tiposController.text = _editedOrder.tipos;
     }
   }
   

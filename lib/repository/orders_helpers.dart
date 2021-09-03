@@ -10,6 +10,7 @@ final String imgColumn = "imgColumn";
 final String tipoColumn = "tipoColumn";
 final String observColumn = "observColumn";
 final String dateColumn = "dateColumn";
+final String tiposColumn = "tiposColumn";
 
 class OrderHelper {
 
@@ -37,7 +38,7 @@ class OrderHelper {
     return await openDatabase(path, version: 1, onCreate: (Database db, int newerVersion) async {
       await db.execute(
         "CREATE TABLE $orderTable($idColumn INTEGER PRIMARY KEY, $numbColumn TEXT, $nameColumn TEXT,"
-         "$imgColumn TEXT, $tipoColumn TEXT, $observColumn TEXT, $dateColumn TEXT)"
+         "$imgColumn TEXT, $tipoColumn TEXT, $observColumn TEXT, $dateColumn TEXT, $tiposColumn TEXT)"
       );
     });
   }
@@ -52,7 +53,7 @@ class OrderHelper {
   Future<Order> getOrder(int id) async {
     Database dbOrder = await db;
     List<Map> maps = await dbOrder.query(orderTable,
-      columns: [idColumn, numbColumn, nameColumn, imgColumn, tipoColumn, observColumn, dateColumn],
+      columns: [idColumn, numbColumn, nameColumn, imgColumn, tipoColumn, observColumn, dateColumn, tiposColumn],
       where: "$idColumn = ?",
       whereArgs: [id]);
     if(maps.length > 0){
@@ -109,6 +110,7 @@ class Order {
   String tipo;
   String observ;
   String date;
+  String tipos;
 
   Order();
 
@@ -120,6 +122,7 @@ class Order {
     tipo = map[tipoColumn];
     observ = map[observColumn];
     date = map[dateColumn];
+    tipos = map[tiposColumn];
   }
 
   Map toMap() {
@@ -129,7 +132,8 @@ class Order {
       imgColumn: img,
       tipoColumn: tipo,
       observColumn: observ,
-      dateColumn: date
+      dateColumn: date,
+      tiposColumn: tipos
     };
     if(id != null){
       map[idColumn] = id;
@@ -139,7 +143,7 @@ class Order {
 
   @override
   String toString() {
-    return "Order(id: $id, numb: $numb, name: $name, img: $img, tipo: $tipo, observ: $observ, date: $date)";
+    return "Order(id: $id, numb: $numb, name: $name, img: $img, tipo: $tipo, observ: $observ, date: $date, tipos: $tipos)";
   }
 
 }
